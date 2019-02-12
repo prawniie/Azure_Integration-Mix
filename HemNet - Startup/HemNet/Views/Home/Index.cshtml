@@ -1,0 +1,29 @@
+﻿@inject SiteConfig SiteConfig
+
+<h1>@SiteConfig.WelcomeMessage</h1>
+
+<form style="margin-top: 2em;">
+    @*<button asp-action="Recreate" class="btn btn-default">Recreate</button>*@
+    <button asp-action="Seed" class="btn btn-default">Seed</button>
+    <button asp-action="Migrate" class="btn btn-default">Migrate</button>
+    <button asp-action="SiteConfig" class="btn btn-default">SiteConfig</button>
+    <button asp-action="Host" class="btn btn-default">Host</button>
+
+</form>
+
+
+@*<form asp-action="Recreate">
+    <button class="btn btn-default">Recreate</button>
+</form>
+
+<form asp-action="Seed">
+    <button class="btn btn-default">Seed</button>
+</form>*@
+
+
+@{
+    if (ViewData["Message"] != null)
+    {
+        <p class="alert alert-success" style="margin-top: 2em;">@ViewData["Message"]</p>
+    }
+}
