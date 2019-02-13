@@ -1,0 +1,49 @@
+﻿@model TimeTempVm
+
+<h1>Väder</h1>
+<form asp-action="DisplayTemperature">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Latitude" class="control-label"></label>
+        <input asp-for="Latitude" class="form-control" />
+        <span asp-validation-for="Latitude" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Longitude" class="control-label"></label>
+        <input asp-for="Longitude" class="form-control" />
+        <span asp-validation-for="Longitude" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Ok" class="btn btn-default"/>
+        </div>
+</form>
+
+@if (Model.TimeTemps != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Tid
+                    </th>
+                    <th>
+                        Temperatur
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.TimeTemps)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Temp)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }

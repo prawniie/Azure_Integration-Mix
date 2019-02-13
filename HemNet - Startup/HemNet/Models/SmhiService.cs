@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static HemNet_Azure.Test.SmhiClasses;
 
-namespace HemNet_Azure.Test
+namespace HemNet_Azure.Models
 {
     public class SmhiService
     {
@@ -24,7 +24,7 @@ namespace HemNet_Azure.Test
                 return await content.ReadAsStringAsync();
             }
         }
-        public async Task<Rootobject> GetMeteorologicalForecast(decimal longitude, decimal latitude)
+        public async Task<Rootobject> GetMeteorologicalForecast(decimal latitude, decimal longitude)
         {
             string sLongitude = Math.Round(longitude, 3).ToString(new CultureInfo("en"));
             string sLatitude = Math.Round(latitude, 3).ToString(new CultureInfo("en"));
