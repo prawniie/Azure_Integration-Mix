@@ -42,6 +42,9 @@ namespace HemNet_Azure.Test
         {
             List<TimeTemp> list = new List<TimeTemp>();
             var day = result.timeSeries.Where(d => d.validTime.Day == now.Day).ToList();
+            var listOfTimeTemps = result.timeSeries.Where(d => d.validTime.Day == now.Day).
+                Select(x => new TimeTemp { Temp = x.parameters.Single(p => p.name == "t").values[0], Time = x.validTime}).ToList();
+
 
             foreach (var time in day)
             {
