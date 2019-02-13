@@ -1,6 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -33,16 +35,27 @@ namespace HemNet_Azure.Test
         [TestMethod]
         public void ExtractInfoFromForecast()
         {
-            var smhi = new SmhiService();
+            var service = new SmhiService();
 
             decimal longitud = 11.9751m;
             decimal latitud = 57.7087m;
 
-            Rootobject rootObject = smhi.GetMeteorologicalForecast(longitud, latitud).Result;
-            //var result = rootObject.timeSeries[0].parameters.Where(p => p.name == "t");
-            decimal result = rootObject.timeSeries[0].parameters[11].values[0];
+            Rootobject result = service.GetMeteorologicalForecast(longitud, latitud).Result;
+            //Parameter param = rootObject.timeSeries[0].parameters.Single(p => p.name == "t");
+            //decimal temp = param.values[0];
+            DateTime time = result.timeSeries[0].validTime;
+            decimal temp = result.timeSeries[0].parameters[11].values[0];
 
 
+        }
+
+        [TestMethod]
+        public void get_all_temperatures_for_a_position_a_given_day()
+        {
+            var service = new SmhiService();
+            var result = service.GetMeteorologicalForecast(11.9751M, 57.7087M).Result;
+
+            List<TimeTemp> timeTemps = service.FilterTemperature(result, DateTime.Now);
         }
     }
 }

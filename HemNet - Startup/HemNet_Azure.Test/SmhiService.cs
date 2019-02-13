@@ -37,5 +37,21 @@ namespace HemNet_Azure.Test
             return JsonConvert.DeserializeObject<Rootobject>(result);
 
         }
+
+        public List<TimeTemp> FilterTemperature(Rootobject result, DateTime now)
+        {
+            List<TimeTemp> list = new List<TimeTemp>();
+            var day = result.timeSeries.Where(d => d.validTime.Day == now.Day).ToList();
+
+            foreach (var time in day)
+            {
+                TimeTemp timeTemp = new TimeTemp();
+                timeTemp.Temp = time.parameters.Single(p => p.name == "t").values[0];
+                timeTemp.Time = time.validTime;
+                list.Add(timeTemp);
+            }
+
+            return list;
+        }
     }
 }
