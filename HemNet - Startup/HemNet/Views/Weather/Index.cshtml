@@ -18,16 +18,25 @@
         </div>
 </form>
 
+@if (ViewBag.Message != null)
+{
+<div class="alert-danger container">
+    <span>BadRequest: @ViewBag.Message</span></div>
+
+}
+
 @if (Model.TimeTemps != null)
     {
+
+    <p>Visar väder för @Model.TimeTemps[0].Time.Day</p>
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        Tid
+                        @Html.DisplayNameFor(model => model.TimeTemp.Time)
                     </th>
                     <th>
-                        Temperatur
+                        @Html.DisplayNameFor(model => model.TimeTemp.Temp)
                     </th>
                     <th></th>
                 </tr>

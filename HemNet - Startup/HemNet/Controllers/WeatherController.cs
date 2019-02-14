@@ -18,12 +18,22 @@ namespace HemNet_Azure.Controllers
 
         public IActionResult DisplayTemperature(TimeTempVm vm)
         {
-            var service = new SmhiService();
-            var result = service.GetMeteorologicalForecast(vm.Latitude, vm.Longitude).Result;
 
-            vm.TimeTemps = service.FilterTemperature(result, DateTime.Now);
+            try
+            {
+                var service = new SmhiService();
+                var result = service.GetMeteorologicalForecast(vm.Latitude, vm.Longitude).Result;
 
-            return View("Index", vm);
+                vm.TimeTemps = service.FilterTemperature(result, DateTime.Now);
+
+                return View("Index", vm);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Message = ex.InnerException.Message;
+                return View("Index",vm);
+            }
         }
 
         //public IActionResult Success(int? lat, int? lon)
